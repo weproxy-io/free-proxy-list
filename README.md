@@ -57,7 +57,7 @@ curl -x http://HOST:PORT https://api.ipify.org --connect-timeout 10 --max-time 2
 curl -x http://USER:PASSWORD@gw.weproxy.com.tr:8989 https://api.ipify.org
 ```
 
-Gateway details and product lines: [paid-proxy-servers](https://github.com/we1town-dev/paid-proxy-servers) · [residential-proxies](https://github.com/we1town-dev/residential-proxies)
+Gateway details and product lines: [paid-proxy-servers](https://github.com/weproxy-io/paid-proxy-servers) · [residential-proxies](https://github.com/weproxy-io/residential-proxies)
 
 ## Free vs WeProxy paid
 
@@ -91,7 +91,7 @@ Public pools fluctuate; broaden filters or refresh later.
 Not recommended — it goes stale fast. Use the live tool instead.
 
 **Language examples for paid gateway?**  
-[nodejs-proxy](https://github.com/we1town-dev/nodejs-proxy) · [php-proxy](https://github.com/we1town-dev/php-proxy) · [python-proxy](https://github.com/we1town-dev/python-proxy)
+[nodejs-proxy](https://github.com/weproxy-io/nodejs-proxy) · [php-proxy](https://github.com/weproxy-io/php-proxy) · [python-proxy](https://github.com/weproxy-io/python-proxy)
 
 ## Links
 
