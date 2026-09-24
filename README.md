@@ -2,94 +2,103 @@
 
 [![WeProxy — Free proxy list](./assets/banner.png)](https://weproxy.io/en/tools/free-proxy-list?utm_source=github&utm_medium=referral&utm_campaign=free-proxy-list)
 
-[![Live list](https://img.shields.io/badge/Live%20list-weproxy.io-111111?style=for-the-badge)](https://weproxy.io/en/tools/free-proxy-list?utm_source=github&utm_medium=referral&utm_campaign=free-proxy-list) [![Proxy Checker](https://img.shields.io/badge/Tool-Proxy%20Checker-2563eb?style=for-the-badge)](https://weproxy.io/en/tools/proxy-checker?utm_source=github&utm_medium=referral&utm_campaign=free-proxy-list)
+[![Live list](https://img.shields.io/badge/Live%20tool-Free%20Proxy%20List-111111?style=for-the-badge)](https://weproxy.io/en/tools/free-proxy-list?utm_source=github&utm_medium=referral&utm_campaign=free-proxy-list)
+[![Checker](https://img.shields.io/badge/Tool-Proxy%20Checker-2563eb?style=for-the-badge)](https://weproxy.io/en/tools/proxy-checker?utm_source=github&utm_medium=referral&utm_campaign=free-proxy-list)
+[![Upgrade](https://img.shields.io/badge/Paid-WeProxy%20plans-16a34a?style=for-the-badge)](https://weproxy.io/en/pricing?utm_source=github&utm_medium=referral&utm_campaign=free-proxy-list)
 
-Browse and download a **public free proxy list** — HTTP and SOCKS addresses for testing and exploration.
+How to use a **public free proxy list** safely — and when to stop relying on it.
 
-Maintained by [WeProxy](https://weproxy.io). The live table lives on the site tool page (not as a static dump in this repo):
+[WeProxy](https://weproxy.io) hosts a live, filterable free proxy table for exploration. This repository documents the workflow; it does **not** vendor a giant static dump that goes stale overnight.
 
-**→ [Free Proxy List on weproxy.io](https://weproxy.io/en/tools/free-proxy-list?utm_source=github&utm_medium=referral&utm_campaign=free-proxy-list)**
+**Open the live list →** [weproxy.io/en/tools/free-proxy-list](https://weproxy.io/en/tools/free-proxy-list?utm_source=github&utm_medium=referral&utm_campaign=free-proxy-list)
 
-## What you get on the live tool
+---
 
-- Public HTTP / HTTPS and SOCKS proxies in a filterable table
-- Location and protocol filters
-- One-click download for exploration
-- Easy hand-off to [Proxy Checker](https://weproxy.io/en/tools/proxy-checker) to verify live lines
+## What the live tool includes
 
-Free proxies are useful for quick prototyping. **Speed, security, and uptime are not guaranteed.** For production, use managed [WeProxy](https://weproxy.io) residential or datacenter lines.
+- HTTP / HTTPS and SOCKS entries in a table  
+- Location and protocol filters  
+- Download for local experiments  
+- Hand-off to [Proxy Checker](https://weproxy.io/en/tools/proxy-checker) for liveness tests  
 
-## Risks of free proxies
+Free proxies help with prototyping. **They are not a production network.**
 
-Public free proxy lists often include:
+## Honest limitations
 
-- Short-lived or already-blocked exits
-- Overloaded / slow hosts
-- Unknown operators (traffic may be inspected)
-- No support or SLA
+| Expectation | Reality on free lists |
+| --- | --- |
+| “Always online” | Most exits die or throttle quickly |
+| “Private / safe” | Operators are unknown; traffic may be watched |
+| “Good for logins” | Session stability is poor |
+| “Drop-in for residential” | Reputation and geo control differ completely |
 
-Do **not** send passwords, sessions, or sensitive data through free public proxies.
+Never send passwords, cookies, or payment flows through free public proxies.
 
-## Free vs paid (quick compare)
+## Recommended workflow
 
-| | Free public list | WeProxy paid lines |
-| --- | --- | --- |
-| Source | Third-party public pools | Managed gateway + product packages |
-| Auth | Usually open IP:PORT | Username/password on `gw.weproxy.com.tr:8989` |
-| Best for | Experiments, learning | Scraping, ads QA, geo checks, production |
-| Support | None | [support@weproxy.io](mailto:support@weproxy.io) / panel |
+1. Open [Free Proxy List](https://weproxy.io/en/tools/free-proxy-list)  
+2. Filter protocol (HTTP vs SOCKS) and location  
+3. Copy a small batch into [Proxy Checker](https://weproxy.io/en/tools/proxy-checker)  
+4. Keep only lines that respond within your timeout  
+5. Discard the rest — churn is normal  
+6. For real workloads, move to [WeProxy Pricing](https://weproxy.io/en/pricing)
 
-Explore paid options: [Pricing](https://weproxy.io/en/pricing) · [Residential](https://weproxy.io/en/proxies/rotating-ipv4-residential) · [Datacenter](https://weproxy.io/en/proxies/rotating-ipv4-datacenter)
+## Quick cURL checks
 
-## How to use the free list
-
-1. Open the [live Free Proxy List](https://weproxy.io/en/tools/free-proxy-list)
-2. Filter by protocol (HTTP/HTTPS or SOCKS) and location
-3. Copy candidates into [Proxy Checker](https://weproxy.io/en/tools/proxy-checker)
-4. Discard dead lines immediately — free pools churn fast
-5. For anything beyond a quick test, switch to a WeProxy package
-
-## Example: test a single free proxy with cURL
-
-Replace host/port with a line from the live list (many free proxies die quickly):
+**Free line (replace host/port from the live table):**
 
 ```bash
 curl -x http://HOST:PORT https://api.ipify.org --connect-timeout 10 --max-time 20
 ```
 
-For a production-style check against WeProxy instead:
+**WeProxy paid gateway (production path):**
 
 ```bash
 curl -x http://USER:PASSWORD@gw.weproxy.com.tr:8989 https://api.ipify.org
 ```
 
+Gateway details and product lines: [paid-proxy-servers](https://github.com/we1town-dev/paid-proxy-servers) · [residential-proxies](https://github.com/we1town-dev/residential-proxies)
+
+## Free vs WeProxy paid
+
+| | Free public list | WeProxy |
+| --- | --- | --- |
+| Access | Open IP:PORT from public sources | Panel user/pass → `gw.weproxy.com.tr:8989` |
+| Support | None | [support@weproxy.io](mailto:support@weproxy.io) |
+| Best for | Learning, one-off tests | Scraping, ads QA, geo, production |
+| Products | Mixed unknown pools | Residential, DC, mobile, ISP |
+
+## When to upgrade
+
+Upgrade when you need any of:
+
+- Repeatable uptime or bandwidth plans  
+- Geo / package control  
+- Documented auth for CI and servers  
+- Support and acceptable-use clarity  
+
+Start here: [Pricing](https://weproxy.io/en/pricing?utm_source=github&utm_medium=referral&utm_campaign=free-proxy-list) · [Rotating residential](https://weproxy.io/en/proxies/rotating-ipv4-residential)
+
 ## FAQ
 
-### Are free proxies safe?
+**Are these proxies safe?**  
+No. Treat free proxies as untrusted. Use WeProxy for sensitive work.
 
-No guarantee. Treat them as untrusted infrastructure. Use WeProxy for sensitive or authenticated workflows.
+**Why is the list empty after filters?**  
+Public pools fluctuate; broaden filters or refresh later.
 
-### How often is the list updated?
+**Can I commit the full list into git?**  
+Not recommended — it goes stale fast. Use the live tool instead.
 
-The site refreshes periodically, but individual free proxies still go offline quickly. Always re-test before use.
+**Language examples for paid gateway?**  
+[nodejs-proxy](https://github.com/we1town-dev/nodejs-proxy) · [php-proxy](https://github.com/we1town-dev/php-proxy) · [python-proxy](https://github.com/we1town-dev/python-proxy)
 
-### Why do so many free proxies fail?
+## Links
 
-They are shared, rate-limited, and frequently blocked. That is normal for public lists.
-
-### What should I use in production?
-
-[WeProxy residential](https://weproxy.io/en/proxies/rotating-ipv4-residential) or other managed products on [Pricing](https://weproxy.io/en/pricing). Free lists are for exploration only.
-
-## Related repos
-
-- [paid-proxy-servers](https://github.com/we1town-dev/paid-proxy-servers)
-- [residential-proxies](https://github.com/we1town-dev/residential-proxies)
-- [nodejs-proxy](https://github.com/we1town-dev/nodejs-proxy) · [php-proxy](https://github.com/we1town-dev/php-proxy) · [python-proxy](https://github.com/we1town-dev/python-proxy)
-
-## Suggested GitHub topics
-
-`free-proxy` · `free-proxy-list` · `proxy` · `proxies` · `http-proxy` · `socks5` · `web-scraping` · `proxy-list`
+- [Live Free Proxy List](https://weproxy.io/en/tools/free-proxy-list)  
+- [Proxy Checker](https://weproxy.io/en/tools/proxy-checker)  
+- [WeProxy](https://weproxy.io)  
+- [All tools](https://weproxy.io/en/tools)  
 
 ## License
 
